@@ -1,0 +1,37 @@
+<main>
+  <section class="image-section">
+    <img src="background.jpg" alt="">
+  </section>
+
+  <section class="login-section">
+    <div class="title-wrapper">
+      <h1>Finance Health</h1>
+      <span>Aqui você monitora suas despesas</span>
+    </div>
+
+    <form action="">
+      <app-input
+        title="Email"
+        name="email"
+        type="email"
+        id="email"
+        placeholder="johndoe@gmail.com"
+        icon="ionMail"
+      />
+
+      <app-input
+        title="Password"
+        name="password"
+        type="password"
+        id="password"
+        placeholder="Write your secret"
+        icon="ionLockClosed"
+      />
+
+      <div class="button-wrapper">
+        <app-button text="Register" type="secondary" />
+        <app-button text="Login" type="primary" />
+      </div>
+    </form>
+  </section>
+</main>
