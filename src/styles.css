@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", serif;
+}
+
+html, body, button {
+  color: var(--text-color);
+  background-color: var(--background-color);
+
+  ::placeholder{
+    color: var(--placeholder-color);
+  }
+}
+
+:root {
+  --main-color: #fca200;
+  --main-color-hover:#e08b00;
+  --secondary-color: #F5F5F5;
+  --secondary-color-hover: #E9E9E9;
+  --text-color: #2C2C2C;
+  --placeholder-color: #6E6E6E;
+  --background-color: #F7F7F7;
+  --input-background-color:#E1E1E1;
+}
+
