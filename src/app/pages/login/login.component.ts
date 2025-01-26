@@ -1,11 +1,12 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DefaultLayoutHomeComponent } from "../../components/default-layout-home/default-layout-home.component";
 import { InputComponent } from '../../components/input/input.component';
-import { CommonModule } from '@angular/common';
 interface LoginForm{
-  login: FormControl,
+  email: FormControl,
   password: FormControl
 }
 @Component({
@@ -17,15 +18,19 @@ interface LoginForm{
 export class LoginComponent {
   loginForm: FormGroup<LoginForm>;
 
-  constructor(private router: Router){
+  constructor(private router: Router, private http: HttpClient){
     this.loginForm = new FormGroup({
-      login: new FormControl(""),
+      email: new FormControl(""),
       password: new FormControl("")
     })
   }
 
   submit(){
-    console.log(this.loginForm.value.login, this.loginForm.value.password)
+
+    this.http.post("http://localhost:3000/auth", {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    }).subscribe()
   }
 
   redirect(path: string){
