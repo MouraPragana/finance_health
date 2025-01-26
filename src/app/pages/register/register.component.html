@@ -1,0 +1,43 @@
+<app-default-layout-home (redirect)="redirect('login')" primary="register" (submit)="submit()">
+  <form [formGroup]="registerForm">
+    <app-input
+      title="Email"
+      name="email"
+      type="email"
+      id="email"
+      placeholder="johndoe@gmail.com"
+      icon="ionMail"
+      formControlName="login"
+    />
+
+    <app-input
+      title="Confirm Email"
+      name="confirmEmail"
+      type="email"
+      id="confirmEmail"
+      placeholder="Confirm your email"
+      icon="ionMail"
+      formControlName="confirmLogin"
+    />
+
+    <app-input
+      title="Password"
+      name="password"
+      type="password"
+      id="password"
+      placeholder="Write your secret"
+      icon="ionLockClosed"
+      formControlName="password"
+    />
+
+    <app-input
+      title="Confirm Password"
+      name="confirmPassword"
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm your secret"
+      icon="ionLockClosed"
+      formControlName="confirmPassword"
+    />
+  </form>
+</app-default-layout-home>
