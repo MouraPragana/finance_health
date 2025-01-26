@@ -1,0 +1,19 @@
+<main>
+  <section class="image-section">
+    <img src="background.jpg" alt="">
+  </section>
+
+  <section class="login-section">
+    <div class="title-wrapper">
+      <h1>Finance Health</h1>
+      <span>Aqui você monitora suas despesas</span>
+    </div>
+
+    <ng-content></ng-content>
+
+    <div class="button-wrapper" [ngStyle]="{'flex-direction': primary !== 'login' ? 'row-reverse': 'row'}">
+      <app-button text="Register" [type]="getButtonType('register', primary)" (click)="getButtonFunction('register', primary)" />
+      <app-button text="Login" [type]="getButtonType('login', primary)" (click)="getButtonFunction('login', primary)" />
+    </div>
+  </section>
+</main>
