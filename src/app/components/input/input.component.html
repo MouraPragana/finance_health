@@ -1,11 +1,17 @@
 <div class="input-wrapper">
-  <label for="{{name}}">{{title}}</label>
+  <label [for]="name">{{title}}</label>
 
   <div class="mock-field">
     <div class="icon-wrapper">
-      <ng-icon name="{{icon}}" size="18" color="#F5F5F5" />
+      <ng-icon [name]="icon" size="18" color="#F5F5F5" />
     </div>
 
-    <input type="{{type}}" name="{{name}}" id="{{name}}" placeholder="{{placeholder}}">
+    <input
+      [type]="type"
+      [name]="name"
+      [id]="name"
+      [placeholder]="placeholder"
+      (input)="onInput($event)"
+    />
   </div>
 </div>
