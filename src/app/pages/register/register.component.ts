@@ -6,8 +6,8 @@ import { InputComponent } from '../../components/input/input.component';
 import { Router } from '@angular/router';
 
 interface RegisterForm{
-  login: FormControl,
-  confirmLogin: FormControl,
+  email: FormControl,
+  confirmEmail: FormControl,
   password: FormControl
   confirmPassword: FormControl
 }
@@ -23,8 +23,8 @@ export class RegisterComponent {
 
   constructor(private router: Router){
     this.registerForm = new FormGroup({
-      login: new FormControl(""),
-      confirmLogin: new FormControl(""),
+      email: new FormControl(""),
+      confirmEmail: new FormControl(""),
       password: new FormControl(""),
       confirmPassword: new FormControl("")
     })
@@ -35,6 +35,6 @@ export class RegisterComponent {
   }
 
   submit(){
-    console.log(this.registerForm.value.login, this.registerForm.value.confirmLogin, this.registerForm.value.password, this.registerForm.value.confirmPassword)
+    console.log(this.registerForm.value.email, this.registerForm.value.confirmEmail, this.registerForm.value.password, this.registerForm.value.confirmPassword)
   }
 }
