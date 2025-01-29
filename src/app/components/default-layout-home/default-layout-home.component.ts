@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from "../button/button.component";
 
 @Component({
@@ -14,6 +14,19 @@ export class DefaultLayoutHomeComponent {
   @Output("redirect") onRedirect = new EventEmitter();
   @Output("submit") onSubmit = new EventEmitter();
   @Input() primary: string = '';
+  @Input() form!: FormGroup
+
+  isButtonDisabled(buttonName: string, primary: string): boolean{
+    if (primary == buttonName){
+      if (!this.form.valid){
+        return true
+      }
+
+      return false
+    }
+
+    return false
+  }
 
   getButtonType(buttonName: string, primary: string){
     return primary == buttonName ? 'primary': 'secondary'

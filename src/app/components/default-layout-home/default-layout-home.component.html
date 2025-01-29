@@ -12,8 +12,9 @@
     <ng-content></ng-content>
 
     <div class="button-wrapper" [ngStyle]="{'flex-direction': primary !== 'login' ? 'row-reverse': 'row'}">
-      <app-button text="Register" [type]="getButtonType('register', primary)" (click)="getButtonFunction('register', primary)" />
-      <app-button text="Login" [type]="getButtonType('login', primary)" (click)="getButtonFunction('login', primary)" />
+      <app-button text="Register" [type]="getButtonType('register', primary)" (click)="getButtonFunction('register', primary)" [disabled]="isButtonDisabled('register', primary)"  />
+      <app-button text="Login" [type]="getButtonType('login', primary)" (click)="getButtonFunction('login', primary)" [disabled]="isButtonDisabled('login', primary)" />
     </div>
+
   </section>
 </main>
