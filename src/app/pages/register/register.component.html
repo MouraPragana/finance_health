@@ -1,4 +1,4 @@
-<app-default-layout-home (redirect)="redirect('login')" primary="register" (submit)="submit()">
+<app-default-layout-home (redirect)="redirect('login')" primary="register" (submit)="submit()" [form]="registerForm">
   <form [formGroup]="registerForm">
     <app-input
       title="Email"
@@ -10,6 +10,10 @@
       formControlName="email"
     />
 
+    @if (registerForm.get("email")?.hasError("email") && registerForm.get('email')?.errors){
+      <span class="error-message">Email must be a valid email address.</span>
+    }
+
     <app-input
       title="Confirm Email"
       name="confirmEmail"
@@ -19,6 +23,10 @@
       icon="ionMail"
       formControlName="confirmEmail"
     />
+
+    @if (registerForm.hasError('emailMatch')) {
+      <span class="error-message">{{registerForm.errors?.['emailMatch'].message}}</span>
+    }
 
     <app-input
       title="Password"
@@ -30,6 +38,12 @@
       formControlName="password"
     />
 
+    @if (registerForm.get('password')?.hasError('passwordStrength')) {
+      @for (error of registerForm.get('password')?.errors?.['passwordStrength'].arrayErrorsMessage; track error){
+        <span class="error-message">{{error}}</span>
+      }
+    }
+
     <app-input
       title="Confirm Password"
       name="confirmPassword"
@@ -39,5 +53,10 @@
       icon="ionLockClosed"
       formControlName="confirmPassword"
     />
+
+    @if (registerForm.hasError('passwordMatch')) {
+      <span class="error-message">{{registerForm.errors?.['passwordMatch'].message}}</span>
+    }
+
   </form>
 </app-default-layout-home>

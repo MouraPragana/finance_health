@@ -9,4 +9,11 @@ form{
     width: 100%;
     gap: 12px;
   }
+
+  .error-message {
+    font-size: 12px;
+    color: #d9534f;
+    margin-bottom: 12px;
+    padding: 0;
+  }
 }

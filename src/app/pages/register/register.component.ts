@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from "../../components/button/button.component";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DefaultLayoutHomeComponent } from "../../components/default-layout-home/default-layout-home.component";
 import { InputComponent } from '../../components/input/input.component';
-import { Router } from '@angular/router';
+import { TokenService } from '../../services/token.service';
+import { emailMatchValidator } from '../../validators/email-match';
+import { passwordMatchValidator } from '../../validators/password-match';
+import { passwordStrengthValidator } from '../../validators/password-strength.validador';
 
-interface RegisterForm{
+export interface RegisterForm{
   email: FormControl,
   confirmEmail: FormControl,
   password: FormControl
@@ -21,13 +24,19 @@ interface RegisterForm{
 export class RegisterComponent {
   registerForm: FormGroup<RegisterForm>;
 
-  constructor(private router: Router){
+  constructor(private router: Router, private tokenService: TokenService){
     this.registerForm = new FormGroup({
-      email: new FormControl(""),
-      confirmEmail: new FormControl(""),
-      password: new FormControl(""),
-      confirmPassword: new FormControl("")
-    })
+      email: new FormControl("", [Validators.required, Validators.email]),
+      confirmEmail: new FormControl("", Validators.required),
+      password: new FormControl("", [Validators.required, passwordStrengthValidator()]),
+      confirmPassword: new FormControl("", Validators.required)
+    }, {
+      validators: [passwordMatchValidator, emailMatchValidator]
+    });
+  }
+
+  ngOnInit() {
+    this.tokenService.verifyAuthToken("finances")
   }
 
   redirect(path: string){
