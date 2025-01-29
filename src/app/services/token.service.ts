@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,18 @@ export class TokenService {
     return localStorage.getItem(this.authToken)
   }
 
-  async verifyAuthToken(path: string) {
-    this.http.post("http://localhost:3000/auth/verify-token", {}).subscribe({
-      next: (data) => {
-        this.router.navigate([path]);
-      },
-      error: (error) => {
-        this.cleanAuthToken();
+  async verifyAuthToken(path?: string): Promise<boolean> {
+    try {
+      await firstValueFrom(this.http.post("http://localhost:3000/auth/verify-token", {}))
+
+      if (path){
+        this.router.navigate([path])
       }
-    })
+
+      return true;
+    } catch {
+      this.cleanAuthToken();
+      return false;
+    }
   }
 }
