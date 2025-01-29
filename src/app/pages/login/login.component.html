@@ -1,4 +1,4 @@
-<app-default-layout-home (redirect)="redirect('register')" primary="login" (submit)="submit()">
+<app-default-layout-home (redirect)="redirect('register')" primary="login" (submit)="submit()" [form]="loginForm">
   <form [formGroup]="loginForm">
     <app-input
       title="Email"
@@ -10,6 +10,10 @@
       formControlName="email"
     />
 
+    @if (loginForm.get("email")?.hasError("email") && loginForm.get("email")?.errors){
+      <span class="error-message">Email must be a valid email address.</span>
+    }
+
     <app-input
       title="Password"
       name="password"
@@ -19,5 +23,11 @@
       icon="ionLockClosed"
       formControlName="password"
     />
+
+    @if (loginForm.get('password')?.hasError('passwordStrength')) {
+      @for (error of loginForm.get('password')?.errors?.['passwordStrength'].arrayErrorsMessage; track error){
+        <span class="error-message">{{error}}</span>
+      }
+    }
   </form>
 </app-default-layout-home>

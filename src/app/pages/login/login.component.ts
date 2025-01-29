@@ -1,13 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { firstValueFrom } from 'rxjs';
 import { DefaultLayoutHomeComponent } from "../../components/default-layout-home/default-layout-home.component";
 import { InputComponent } from '../../components/input/input.component';
-interface LoginForm{
+import { TokenService } from '../../services/token.service';
+import { passwordStrengthValidator } from '../../validators/password-strength.validador';
+
+export interface LoginForm{
   email: FormControl,
   password: FormControl
+}
+
+interface LoginResponse{
+  access_token : string
 }
 @Component({
   selector: 'app-login',
@@ -18,19 +27,30 @@ interface LoginForm{
 export class LoginComponent {
   loginForm: FormGroup<LoginForm>;
 
-  constructor(private router: Router, private http: HttpClient){
+  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService, private tokenService: TokenService){
     this.loginForm = new FormGroup({
-      email: new FormControl(""),
-      password: new FormControl("")
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, passwordStrengthValidator()])
     })
   }
 
-  submit(){
+  ngOnInit() {
+    this.tokenService.verifyAuthToken("finances")
+  }
 
-    this.http.post("http://localhost:3000/auth", {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-    }).subscribe()
+  async submit(){
+    try {
+      const result = await firstValueFrom(this.http.post<LoginResponse>("http://localhost:3000/auth", {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      }))
+
+      this.tokenService.saveAuthToken(result.access_token);
+      this.redirect("finances");
+      this.toastr.success("Acessando seu financeiro...");
+    } catch {
+      this.toastr.error("E-mail/senha inválidos. Tente novamente mais tarde.", "Atenção");
+    }
   }
 
   redirect(path: string){
