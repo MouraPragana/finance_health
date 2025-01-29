@@ -15,7 +15,14 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease, border 0.3s ease;
 
-    &:hover{
+    &:disabled{
+      background-color: #e0e0e0;
+      color: #ccc;
+      border-color: #ddd;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled){
       background-color: var(--main-color-hover);
       border: 2px solid var(--main-color-hover);
     }
