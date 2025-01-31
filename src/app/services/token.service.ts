@@ -8,9 +8,11 @@ import { firstValueFrom } from 'rxjs';
 })
 export class TokenService {
   authToken: string
+  refreshToken: string
 
   constructor(private http: HttpClient, private router: Router) {
     this.authToken = "auth-token"
+    this.refreshToken = "refresh-token"
    }
 
   saveAuthToken(token: string): void{
@@ -22,8 +24,16 @@ export class TokenService {
     localStorage.removeItem(this.authToken)
   }
 
+  cleanRefreshToken(): void {
+    localStorage.removeItem(this.refreshToken)
+  }
+
   getAuthToken(): string | null{
     return localStorage.getItem(this.authToken)
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem(this.refreshToken)
   }
 
   async verifyAuthToken(path?: string): Promise<boolean> {
