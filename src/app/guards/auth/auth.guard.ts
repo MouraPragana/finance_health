@@ -12,6 +12,7 @@ export const authGuard: CanActivateFn = async(route, state) => {
     }
 
     tokenService.cleanAuthToken();
+    tokenService.cleanRefreshToken();
     router.navigate(["login"]);
     return false;
 };
