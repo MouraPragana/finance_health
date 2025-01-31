@@ -5,6 +5,7 @@ import { ButtonComponent } from "../button/button.component";
 
 @Component({
   selector: 'app-default-layout-home',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule, ButtonComponent],
   templateUrl: './default-layout-home.component.html',
   styleUrl: './default-layout-home.component.css'
@@ -16,16 +17,26 @@ export class DefaultLayoutHomeComponent {
   @Input() primary: string = '';
   @Input() form!: FormGroup
 
+  isLoaded:boolean;
+
+  constructor(){
+    this.isLoaded = false;
+  }
+
   isButtonDisabled(buttonName: string, primary: string): boolean{
     if (primary == buttonName){
       if (!this.form.valid){
-        return true
+        return true;
       }
 
-      return false
+      return false;
     }
 
-    return false
+    return false;
+  }
+
+  setLoadedImage(){
+    this.isLoaded = true;
   }
 
   getButtonType(buttonName: string, primary: string){

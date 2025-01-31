@@ -1,12 +1,12 @@
 <main>
-  <section class="image-section">
-    <img src="background.jpg" alt="">
+  <section class="image-section" [ngStyle]="{'display': !isLoaded ? 'none' : 'flex'}">
+    <img src="background.jpg" alt="" (load)="setLoadedImage()"/>
   </section>
 
   <section class="login-section">
     <div class="title-wrapper">
       <h1>Finance Health</h1>
-      <span>Aqui você monitora suas despesas</span>
+      <span>Here you can track and manage your expenses.</span>
     </div>
 
     <ng-content></ng-content>
