@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -10,4 +10,5 @@ export class ButtonComponent {
   @Input() text: string = "";
   @Input() type: string = "";
   @Input() disabled: boolean = false;
+  @Input() class: string = "";
 }
