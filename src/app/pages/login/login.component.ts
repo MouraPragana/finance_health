@@ -47,9 +47,9 @@ export class LoginComponent {
 
       this.tokenService.saveAuthToken(result.access_token);
       this.redirect("finances");
-      this.toastr.success("Acessando seu financeiro...");
+      this.toastr.success("Login successful.");
     } catch {
-      this.toastr.error("E-mail/senha inválidos. Tente novamente mais tarde.", "Atenção");
+      this.toastr.error("Invalid email/password. Please try again later.");
     }
   }
 
