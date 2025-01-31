@@ -5,13 +5,13 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
-import { addTokenRequest } from './interceptors/interceptors.service';
+import { execGlobalInteceptor } from './interceptors/interceptors.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
       provideHttpClient(withFetch(),
-      withInterceptors([addTokenRequest])),
+      withInterceptors([execGlobalInteceptor])),
       provideAnimations(),
       provideToastr()]
 };
